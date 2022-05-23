@@ -14,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("classpath:../application.properties")
 @ComponentScan(basePackages = "edu.school21.cinema")
+@PropertySource("classpath:../application.properties")
 public class AppConfig {
     @Value("${db.url}")
     private String url;
