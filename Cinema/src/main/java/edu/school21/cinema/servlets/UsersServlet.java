@@ -14,27 +14,27 @@ import java.io.IOException;
 
 @WebServlet("/users")
 public class UsersServlet extends HttpServlet {
-    private UsersService usersService;
-
-    @Override
-    public void init (ServletConfig config ) throws ServletException {
-        ServletContext context = config.getServletContext();
-        ApplicationContext springContext = (ApplicationContext) context.getAttribute("springContext");
-        this.usersService = springContext.getBean(UsersService.class);
-    }
-
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.service(req, resp);
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
+//    private UsersService usersService;
+//
+//    @Override
+//    public void init (ServletConfig config ) throws ServletException {
+//        ServletContext context = config.getServletContext();
+//        ApplicationContext springContext = (ApplicationContext) context.getAttribute("springContext");
+//        this.usersService = springContext.getBean(UsersService.class);
+//    }
+//
+//    @Override
+//    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        super.service(req, resp);
+//    }
+//
+//    @Override
+//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        super.doGet(req, resp);
+//    }
+//
+//    @Override
+//    public void destroy() {
+//        super.destroy();
+//    }
 }

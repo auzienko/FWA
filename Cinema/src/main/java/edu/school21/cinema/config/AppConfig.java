@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 @Configuration
 @PropertySource("classpath:../application.properties")
 @ComponentScan(basePackages = "edu.school21.cinema")
-public class CinemaConfig {
+public class AppConfig {
     @Value("${db.url}")
     private String url;
     @Value("${db.user}")
