@@ -2,6 +2,10 @@ package edu.school21.cinema.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import edu.school21.cinema.repositories.UsersRepository;
+import edu.school21.cinema.repositories.UsersRepositoryImpl;
+import edu.school21.cinema.services.UserServiceImpl;
+import edu.school21.cinema.services.UsersService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -44,5 +48,15 @@ public class AppConfig {
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public UsersRepository usersRepository(JdbcTemplate jdbcTemplate) {
+        return new UsersRepositoryImpl(jdbcTemplate);
+    }
+
+    @Bean
+    public UsersService usersService(UsersRepository usersRepository, PasswordEncoder bCryptEncoder) {
+        return new UserServiceImpl(usersRepository, bCryptEncoder);
     }
 }

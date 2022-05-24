@@ -1,0 +1,2 @@
+INSERT INTO public.users (id, first_name, last_name, phone_number, email, password) VALUES (1, 'foo', 'bar', '111-111-111', 'foo@bar.com', '$2a$10$PJUqGmpHT4NXJdRgenw5suG0../GJUH/CXfFG.BnFZy86tMedl/ym');
+INSERT INTO public.users (id, first_name, last_name, phone_number, email, password) VALUES (2, 'qaz', 'wsx', '222-222-222', 'qaz@wsx.com', '$2a$10$Ie8/WZZNmg8iOJdYu7kNG.hMVqR/fLnH8quFiw541ZoTXfXuKEPVO');

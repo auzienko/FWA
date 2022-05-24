@@ -8,10 +8,30 @@
 <H1>FWA / Sign In</H1>
 <form method="post" action="signIn">
     <table>
-        <tr><td>Email:</td><td><input name="email" type="text"/></td></tr>
-        <tr><td>Password:</td><td><input name="password" type="password"/></td></tr>
-        <tr><td> </td><td><button type="Submit">Send</button></td></tr>
+        <tr>
+            <td>Email:</td>
+            <td><input name="email" type="text"/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input name="password" type="password"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="Submit">Send</button>
+            </td>
+        </tr>
     </table>
 </form>
+<%
+    String error = (String)request.getAttribute("signInError");
+    if (error != null) {
+        request.removeAttribute("signInError");
+%>
+<b>Incorrect password or email!</b>
+<%
+    }
+%>
 </body>
 </html>
