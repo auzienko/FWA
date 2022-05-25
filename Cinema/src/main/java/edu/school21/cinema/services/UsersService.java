@@ -2,7 +2,9 @@ package edu.school21.cinema.services;
 
 import edu.school21.cinema.models.User;
 
+import java.util.Optional;
+
 public interface UsersService {
-    Long signUp(User entity);
-    Long signIn(String email, String password);
+    Optional<User> signUp(User entity);
+    Optional<User> signIn(String email, String password);
 }

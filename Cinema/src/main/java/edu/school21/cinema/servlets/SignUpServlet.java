@@ -12,8 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 @WebServlet("/signUp")
 public class SignUpServlet  extends HttpServlet {
@@ -40,9 +42,10 @@ public class SignUpServlet  extends HttpServlet {
         String lastName = req.getParameter("lastName");
         String phoneNumber = req.getParameter("phoneNumber");
 
-        Long id = usersService.signUp(new User(firstName, lastName, phoneNumber, password, email));
+        Optional<User> user = usersService.signUp(new User(firstName, lastName, phoneNumber, password, email));
 
-        if (id != null) {
+        if (user.isPresent()) {
+            user.get().toSessionAttributes(req.getSession());
             resp.sendRedirect(req.getContextPath() + "/profile");
         } else {
             req.setAttribute("signUpError", "signUpError");

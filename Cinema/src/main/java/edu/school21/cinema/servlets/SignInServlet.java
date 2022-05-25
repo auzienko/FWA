@@ -1,5 +1,6 @@
 package edu.school21.cinema.servlets;
 
+import edu.school21.cinema.models.User;
 import edu.school21.cinema.services.UsersService;
 import org.springframework.context.ApplicationContext;
 
@@ -11,8 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 @WebServlet("/signIn")
 public class SignInServlet extends HttpServlet {
@@ -35,8 +38,9 @@ public class SignInServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        Long id = usersService.signIn(email, password);
-        if (id != null) {
+        Optional<User> user = usersService.signIn(email, password);
+        if (user.isPresent()) {
+            user.get().toSessionAttributes(req.getSession());
             resp.sendRedirect(req.getContextPath() + "/profile");
         } else {
             req.setAttribute("signInError", "signInError");

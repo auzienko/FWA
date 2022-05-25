@@ -1,5 +1,8 @@
 package edu.school21.cinema.models;
 
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
 public class User extends Entity{
     private String firstName;
     private String lastName;
@@ -56,5 +59,13 @@ public class User extends Entity{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void toSessionAttributes(HttpSession httpSession){
+        httpSession.setAttribute("id", getId());
+        httpSession.setAttribute("email", getEmail());
+        httpSession.setAttribute("firstName", getFirstName());
+        httpSession.setAttribute("lastName", getLastName());
+        httpSession.setAttribute("phoneNumber", getPhoneNumber());
     }
 }
