@@ -20,7 +20,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 100%;">&nbsp;</td>
+                    <td style="width: 100%;">&nbsp;<form method="post" action="images">
+                        <button type="Submit">Upload</button>
+                    </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -31,8 +34,9 @@
                 <tbody>
                 <tr>
                     <td style="width: 100%;">
-                        <h1>firstName lastName</h1>
-                        <p>email@email.com</p>
+
+                        <h1><c:out value="${sessionScope.firstName}"/> <c:out value="${sessionScope.lastName}"/></h1>
+                        <p><c:out value="${sessionScope.email}"/></p>
                     </td>
                 </tr>
                 <tr>
@@ -46,16 +50,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td style="width: 33.3333%;">&nbsp;</td>
-                                <td style="width: 33.3333%;">&nbsp;</td>
-                                <td style="width: 33.3333%;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 33.3333%;">&nbsp;</td>
-                                <td style="width: 33.3333%;">&nbsp;</td>
-                                <td style="width: 33.3333%;">&nbsp;</td>
-                            </tr>
+                            <c:forEach var="item" items="${userAuthHistory}">
+                                <tr>
+                                    <td style="width: 33.3333%;">${item.toDateTimeString("MMMM dd, yyyy")}</td>
+                                    <td style="width: 33.3333%;">${item.toDateTimeString("HH:mm")}</td>
+                                    <td style="width: 33.3333%;">&nbsp;${item.getIp()}</td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </td>

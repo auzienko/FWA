@@ -2,8 +2,12 @@ package edu.school21.cinema.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import edu.school21.cinema.repositories.UserAuthHistoryRepository;
+import edu.school21.cinema.repositories.UserAuthHistoryRepositoryImpl;
 import edu.school21.cinema.repositories.UsersRepository;
 import edu.school21.cinema.repositories.UsersRepositoryImpl;
+import edu.school21.cinema.services.UserAuthHistoryService;
+import edu.school21.cinema.services.UserAuthHistoryServiceImpl;
 import edu.school21.cinema.services.UserServiceImpl;
 import edu.school21.cinema.services.UsersService;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,7 +60,16 @@ public class AppConfig {
     }
 
     @Bean
+    public UserAuthHistoryRepository userAuthHistoryRepository(JdbcTemplate jdbcTemplate) {
+        return new UserAuthHistoryRepositoryImpl(jdbcTemplate);
+    }
+    @Bean
     public UsersService usersService(UsersRepository usersRepository, PasswordEncoder bCryptEncoder) {
         return new UserServiceImpl(usersRepository, bCryptEncoder);
+    }
+
+    @Bean
+    public UserAuthHistoryService userAuthHistoryService(UserAuthHistoryRepository userAuthHistoryRepository) {
+        return new UserAuthHistoryServiceImpl(userAuthHistoryRepository);
     }
 }
