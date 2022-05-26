@@ -16,13 +16,17 @@
                    cellpadding="0">
                 <tbody>
                 <tr>
-                    <td style="width: 100%;"><img src="https://html-online.com/editor/images/html-editor.png" alt=""/>
+                    <td style="width: 100%;">
+                        <img src="${userAvatar}" alt="" width="300"/>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 100%;">&nbsp;<form method="post" action="images">
-                        <button type="Submit">Upload</button>
-                    </form>
+                    <td style="width: 100%;">
+                        <form action="images" enctype="multipart/form-data"
+                              method="post">
+                            <input type="file" name="newAvatar" accept="image/*">
+                            <button type="submit">Upload</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>
@@ -76,16 +80,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr style="height: 18px;">
-        <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
-        <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
-        <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
-    </tr>
-    <tr style="height: 18px;">
-        <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
-        <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
-        <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
-    </tr>
+    <c:forEach var="item" items="${userAvatarsHistory}">
+        <tr>
+            <td style="width: 33.3333%;"><a href="./images/${item.getId()}---${item.getFileName()}" target="_blank">${item.getFileName()}</a></td>
+            <td style="width: 33.3333%;">${item.sizeToString()}</td>
+            <td style="width: 33.3333%;">&nbsp;${item.getMime()}</td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>
 </body>

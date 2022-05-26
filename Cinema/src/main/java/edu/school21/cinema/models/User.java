@@ -9,6 +9,7 @@ public class User extends Entity{
     private String phoneNumber;
     private String password;
     private String email;
+    private Long avatarId;
 
     public User() {
     }
@@ -61,11 +62,20 @@ public class User extends Entity{
         this.email = email;
     }
 
+    public Long getAvatarId() {
+        return avatarId;
+    }
+
+    public void setAvatarId(Long avatarId) {
+        this.avatarId = avatarId;
+    }
+
     public void toSessionAttributes(HttpSession httpSession){
         httpSession.setAttribute("id", getId());
         httpSession.setAttribute("email", getEmail());
         httpSession.setAttribute("firstName", getFirstName());
         httpSession.setAttribute("lastName", getLastName());
         httpSession.setAttribute("phoneNumber", getPhoneNumber());
+        httpSession.setAttribute("avatarId", getAvatarId());
     }
 }

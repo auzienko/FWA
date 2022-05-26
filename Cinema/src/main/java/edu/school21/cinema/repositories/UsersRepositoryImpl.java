@@ -13,9 +13,9 @@ public class UsersRepositoryImpl implements UsersRepository {
     private final JdbcTemplate jdbcTemplate;
     private static String SQL_FIND_BY_ID = "SELECT * FROM users WHERE id=? LIMIT 1;";
     private static String SQL_FIND_ALL = "SELECT * FROM users;";
-    private static String SQL_SAVE = "INSERT INTO users (id, first_name, last_name, phone_number, email, password) VALUES (?,?,?,?,?,?);";
-    private static String SQL_SAVE_AUTOID = "INSERT INTO users (first_name, last_name, phone_number, email, password) VALUES (?,?,?,?,?);";
-    private static String SQL_UPDATE = "UPDATE users SET first_name=?, last_name=?, phone_number=?, email=?, password=? WHERE id=?;";
+    private static String SQL_SAVE = "INSERT INTO users (id, first_name, last_name, phone_number, email, password, avatar_id) VALUES (?,?,?,?,?,?,?);";
+    private static String SQL_SAVE_AUTOID = "INSERT INTO users (first_name, last_name, phone_number, email, password, avatar_id) VALUES (?,?,?,?,?,?);";
+    private static String SQL_UPDATE = "UPDATE users SET first_name=?, last_name=?, phone_number=?, email=?, password=?, avatar_id=? WHERE id=?;";
     private static String SQL_DELETE = "DELETE FROM users WHERE id=?;";
     private static String SQL_FIND_BY_EMAIL = "SELECT * FROM users WHERE email=? LIMIT 1;";
 
@@ -34,6 +34,7 @@ public class UsersRepositoryImpl implements UsersRepository {
             result.setPhoneNumber(rs.getString("phone_number"));
             result.setEmail(rs.getString("email"));
             result.setPassword(rs.getString("password"));
+            result.setAvatarId(rs.getLong("avatar_id"));
             return result;
         }
     }
@@ -52,15 +53,15 @@ public class UsersRepositoryImpl implements UsersRepository {
     @Override
     public void save(User entity) {
         if (entity.getId() != null) {
-            jdbcTemplate.update(SQL_SAVE, entity.getId(), entity.getFirstName(), entity.getLastName(), entity.getPhoneNumber(), entity.getEmail(), entity.getPassword());
+            jdbcTemplate.update(SQL_SAVE, entity.getId(), entity.getFirstName(), entity.getLastName(), entity.getPhoneNumber(), entity.getEmail(), entity.getPassword(), entity.getAvatarId());
         } else {
-            jdbcTemplate.update(SQL_SAVE_AUTOID, entity.getFirstName(), entity.getLastName(), entity.getPhoneNumber(), entity.getEmail(), entity.getPassword());
+            jdbcTemplate.update(SQL_SAVE_AUTOID, entity.getFirstName(), entity.getLastName(), entity.getPhoneNumber(), entity.getEmail(), entity.getPassword(), entity.getAvatarId());
         }
     }
 
     @Override
     public void update(User entity) {
-        jdbcTemplate.update(SQL_UPDATE, entity.getFirstName(), entity.getLastName(), entity.getPhoneNumber(), entity.getEmail(), entity.getPassword(), entity.getId());
+        jdbcTemplate.update(SQL_UPDATE, entity.getFirstName(), entity.getLastName(), entity.getPhoneNumber(), entity.getEmail(), entity.getPassword(), entity.getAvatarId(), entity.getId());
     }
 
     @Override

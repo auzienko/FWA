@@ -2,14 +2,8 @@ package edu.school21.cinema.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import edu.school21.cinema.repositories.UserAuthHistoryRepository;
-import edu.school21.cinema.repositories.UserAuthHistoryRepositoryImpl;
-import edu.school21.cinema.repositories.UsersRepository;
-import edu.school21.cinema.repositories.UsersRepositoryImpl;
-import edu.school21.cinema.services.UserAuthHistoryService;
-import edu.school21.cinema.services.UserAuthHistoryServiceImpl;
-import edu.school21.cinema.services.UserServiceImpl;
-import edu.school21.cinema.services.UsersService;
+import edu.school21.cinema.repositories.*;
+import edu.school21.cinema.services.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,6 +27,8 @@ public class AppConfig {
     private String password;
     @Value("${db.driver.name}")
     private String driverClassName;
+    @Value("${storage.path}")
+    private String storagePath;
 
     @Bean
     public DataSource dataSource() {
@@ -63,6 +59,11 @@ public class AppConfig {
     public UserAuthHistoryRepository userAuthHistoryRepository(JdbcTemplate jdbcTemplate) {
         return new UserAuthHistoryRepositoryImpl(jdbcTemplate);
     }
+
+    @Bean
+    public UsersAvatarRepository usersAvatarRepository(JdbcTemplate jdbcTemplate) {
+        return new UsersAvatarRepositoryImpl(jdbcTemplate);
+    }
     @Bean
     public UsersService usersService(UsersRepository usersRepository, PasswordEncoder bCryptEncoder) {
         return new UserServiceImpl(usersRepository, bCryptEncoder);
@@ -71,5 +72,10 @@ public class AppConfig {
     @Bean
     public UserAuthHistoryService userAuthHistoryService(UserAuthHistoryRepository userAuthHistoryRepository) {
         return new UserAuthHistoryServiceImpl(userAuthHistoryRepository);
+    }
+
+    @Bean
+    public UserAvatarService userAvatarService(UsersAvatarRepository usersAvatarRepository) {
+        return new UserAvatarServiceImpl(usersAvatarRepository, storagePath);
     }
 }
