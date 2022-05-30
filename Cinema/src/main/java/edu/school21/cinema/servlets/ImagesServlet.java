@@ -21,6 +21,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @WebServlet("/images/*")
@@ -44,7 +45,7 @@ public class ImagesServlet extends HttpServlet {
         Part part = req.getPart("newAvatar");
         Long userId = (Long) req.getSession().getAttribute("id");
         String pathToImg = userAvatarService.getPathToSave(userId);
-        Files.createDirectories(Path.of(pathToImg));
+        Files.createDirectories(Paths.get(pathToImg));
         UserAvatar userAvatar = new UserAvatar(part.getSubmittedFileName(), part.getSize(), part.getContentType(), userId);
         Long avatarId = userAvatarService.add(userAvatar);
         part.write(pathToImg + avatarId + "---" + part.getSubmittedFileName());
@@ -60,7 +61,7 @@ public class ImagesServlet extends HttpServlet {
         if (!uri.startsWith("/images/") || userId == null) {
             return;
         }
-        String relativeImagePath = java.net.URLDecoder.decode(uri.substring("/images/".length()), StandardCharsets.UTF_8);
+        String relativeImagePath = java.net.URLDecoder.decode(uri.substring("/images/".length()), StandardCharsets.UTF_8.name());
         resp.setContentType("image/jpg");
         String pathToImg = userAvatarService.getPathToSave(userId);
         ServletOutputStream outStream;

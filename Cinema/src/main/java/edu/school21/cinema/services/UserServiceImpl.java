@@ -19,7 +19,7 @@ public class UserServiceImpl implements UsersService {
     @Override
     public Optional<User> signUp(User entity) {
         Optional<User> tmp = usersRepository.findByEmail(entity.getEmail());
-        if (tmp.isEmpty()) {
+        if (!tmp.isPresent()) {
             entity.setPassword(bCryptEncoder.encode(entity.getPassword()));
             usersRepository.save(entity);
             tmp = usersRepository.findByEmail(entity.getEmail());
